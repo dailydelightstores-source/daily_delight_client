@@ -1,0 +1,35 @@
+.click-effect {
+  transition: transform 0.12s ease;
+}
+
+.click-effect:active {
+  transform: scale(0.94);
+}
+
+.font1{
+  font-family: "Montserrat", sans-serif;
+}
+
+.font2{
+  font-family: "Playfair Display",sans-serif;
+}
+
+.font3{
+  font-family: "Inter", sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Standard property for modern browsers (use with vendor prefixes for full compatibility) */
+input[type=number] {
+  appearance: textfield;
+}
