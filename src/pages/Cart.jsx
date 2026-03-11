@@ -37,8 +37,8 @@ export default function Cart() {
       })
       dispatch(setCart(cartDataStore))
     }catch(error){
-      console.log(error)
       if(error.response.data.error.message == "jwt must be provided"){
+        navigate("/signin")
         toast.error("Please login to see cart");
       }
     }
@@ -62,15 +62,14 @@ export default function Cart() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 p-6 pt-24">
+      <div className=" bg-gray-50 p-6 pt-19 sm:pt-24">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
-          <h1 className="text-3xl font-semibold text-gray-600 mb-8">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-600 mb-4 sm:mb-8">
             Cart
           </h1>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:justify-self-auto justify-self-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:justify-self-auto justify-self-center">
               {
                 cartData.map( (productData,key) =>{
                   return (
@@ -80,20 +79,20 @@ export default function Cart() {
               }
           </div>
 
-          <div className="mt-10 bg-white rounded-2xl shadow-md p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold">Subtotal</h3>
-              <p className="text-2xl font-bold text-green-600">
-                ₹{TotalAmount}
-              </p>
-            </div>
-
-            <button onClick={Proceed} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-10 py-3 rounded-xl font-semibold transition">
-              Proceed to Checkout
-            </button>
-          </div>
+          
           <Toaster />
         </div>
+      </div>
+      <div className="mt-10 bg-white rounded-2xl shadow-md p-6 flex flex-col sm:flex-row items-center justify-between gap-4 w-5/6 text-nowrap justify-self-center">
+        <div>
+          <h3 className="text-lg font-semibold">Subtotal</h3>
+          <p className="text-2xl font-bold text-green-600">
+            ₹{TotalAmount}
+          </p>
+        </div>
+        <button onClick={Proceed} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-10 py-3 rounded-xl font-semibold transition">
+          Proceed to Checkout
+        </button>
       </div>
       <BottomBar />
       <Footer />

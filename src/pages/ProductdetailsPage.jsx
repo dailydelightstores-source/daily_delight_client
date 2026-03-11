@@ -98,6 +98,9 @@ export default function ProductdetailsPage() {
             if(error.response.data == "Product already in cart"){
                 toast.error('Product already in cart');
             }
+            if(error.response.data.error.name == "JsonWebTokenError"){
+                toast.error('Please login to add cart');
+            }
         })
     }
 

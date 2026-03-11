@@ -9,6 +9,7 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+  const [verify ,setverify] = useState("Verify");
   const [formData, setformData] = useState({
     Full_Name: "",
     Phone_Number: "",
@@ -35,7 +36,9 @@ export default function SignUp() {
 
 
   // start js code here
-  async function SubmitForm() {
+  async function SubmitForm(e) {
+
+    e.preventDefault();
 
     if(!regPattern.FulL_Name_Rule.test(formData.Full_Name)){
       toast.success("Full Name is mandatory !!!")
@@ -128,14 +131,15 @@ export default function SignUp() {
       .then(function (response) {
         if (response.data.message == "Variefy Email") {
           toast.success("Email is verified !!!")
+          setverify("verified");
+          setformData({ ...formData , EmailVariefy: true })
+          setbuttonDisable({ ...buttonDisable, SignUpButton: false , ConfirmButton: true , VerifyButton: true });
         }
-        setformData({ ...formData , EmailVariefy: true })
-        setbuttonDisable({ ...buttonDisable, SignUpButton: false });
       })
       .catch(function (error) {
         setbuttonDisable({ ...buttonDisable, VerifyButton: false });
         if (error.response.data == "Email is not variefy") {
-          toast.error("Email is not Verify")
+          toast.error("Email is not Verify");
         }
 
         if (error.response.data == "Email is required") {
@@ -164,7 +168,7 @@ export default function SignUp() {
               Create your account
             </p>
 
-            <form className="space-y-6">
+            <form onSubmit={(e) => {SubmitForm(e)}} className="space-y-6">
 
               <input
                 type="text"
@@ -227,7 +231,7 @@ export default function SignUp() {
                   className="border px-4 py-1 rounded-md hover:bg-gray-700 hover:text-white transition click-effect disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                   disabled={buttonDisable.VerifyButton}
                 >
-                  Verify
+                  {verify}
                 </button>
               </div>
 
@@ -252,8 +256,7 @@ export default function SignUp() {
               </div>
 
               <button
-                type="button"
-                onClick={SubmitForm}
+                type="submit"
                 className="w-full mt-6 py-2 border rounded-lg text-lg hover:bg-gray-700 hover:text-white transition click-effect disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                 disabled={buttonDisable.SignUpButton}
               >

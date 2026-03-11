@@ -3,7 +3,7 @@ export default function Category() {
   return (
     <>
       <div className="w-fit">
-        <h3 className="text-xl sm:text-2xl font-bold pb-3 pl-5 tracking-wide font3">
+        <h3 className="text-md md:text-xl font-bold pb-3 pl-5 tracking-wide font3">
           Categories
         </h3>
 

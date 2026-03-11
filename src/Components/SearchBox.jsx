@@ -3,7 +3,7 @@ import { closeSearch } from "../features/ui/uiSlice.js";
 import crossIcon from '../assets/icons/close.png'
 import SearchIcon from '../assets/icons/search-interface-symbol.png'
 import { useNavigate } from "react-router-dom";
-import { Activity, useEffect, useState } from "react";
+import { Activity, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Backend_URL } from "../utils/Constant.js";
@@ -15,6 +15,7 @@ export default function SearchBox() {
 
   const [search , setsearch] = useState("")
   const [Suggestion, setSuggestion] = useState([]);
+  const inputRef = useRef(null);
 
    useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,15 +64,22 @@ export default function SearchBox() {
     return true
   }
 
+  useEffect(() => {
+    if (isSearchOpen) {
+      inputRef.current?.focus();
+    } else {
+      inputRef.current?.blur();
+    }
+  }, [isSearchOpen]);
+
   return (
     <div className="block">
       <form onSubmit={ (e) =>{getproduct(e)}} className={`${isSearchOpen ? 'flex' : 'hidden'} mr-5`}>
-          <input type="text" name='searchBox' enterKeyHint="search" className="border-b focus:outline-none w-54  sm:w-2xl" onChange={ (e) =>{ setsearch(e.target.value)} } value={search} placeholder='Search' />
+          <input type="text" name='searchBox' ref={inputRef} enterKeyHint="search" className="border-b focus:outline-none w-54  md:w-xl sm:w-2xl" onChange={ (e) =>{ setsearch(e.target.value)} } value={search} placeholder='Search' />
           <img className='w-4 h-4 -ml-8' alt="" src={crossIcon} onClick={ () => { dispatch(closeSearch()) } } />
       </form>
       <Activity mode={Suggestion.length ? "visible" : "hidden"}>
         <div className="absolute mt-2 w-54 sm:w-2xl bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden max-h-72 overflow-y-auto z-50">
-
           {Suggestion.map((suggestion) => (
             <div
               key={suggestion._id}
@@ -79,7 +87,6 @@ export default function SearchBox() {
               <p data-name={suggestion.name} onClick={(e) =>{ getproduct(e) }} className="text-gray-700 truncate max-w-[85%]">
                 {suggestion.name}
               </p>
-
               <img src={SearchIcon} className="w-3 h-3 opacity-60 shrink-0" alt="" />
             </div>
           ))}

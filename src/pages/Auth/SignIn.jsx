@@ -24,7 +24,9 @@ export default function SignIn() {
     Password_Rule: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
   })
 
-  async function SubmitDetails() {
+  async function SubmitDetails(e) {
+
+    e.preventDefault();
 
     if(!regPattern.Email_Rule.test(formData.Email)){
       toast.error("Email is mandatory");
@@ -73,7 +75,7 @@ export default function SignIn() {
       {/* Left Section */}
       <div className="w-full sm:w-3/5 flex items-center justify-center px-6 sm:px-12 py-12">
 
-        <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+        <form onSubmit={(e) => {SubmitDetails(e)}} className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
 
           {/* Heading */}
           <h1 className="text-3xl font-bold mb-8">
@@ -103,8 +105,7 @@ export default function SignIn() {
           {/* Buttons */}
           <div className="flex gap-4 mt-8">
             <button
-              type="button"
-              onClick={SubmitDetails}
+              type="submit"
               className="flex-1 py-2 border rounded-lg hover:bg-gray-800 hover:text-white transition click-effect"
             >
               Login
@@ -145,7 +146,7 @@ export default function SignIn() {
 
           </div>
 
-        </div>
+        </form>
       </div>
 
       {/* Right Image Section */}

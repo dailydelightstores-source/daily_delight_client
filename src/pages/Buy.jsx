@@ -53,7 +53,10 @@ export default function Buy() {
                 setDiscountMRP(DMRP);
                 setproducts(array);
             } catch (e) {
-                console.log(e);
+                if(e.response.data.error.name == "JsonWebTokenError"){
+                    navigate("/signin")
+                    toast.error("Please login to purchase")
+                }
             }
         }
 

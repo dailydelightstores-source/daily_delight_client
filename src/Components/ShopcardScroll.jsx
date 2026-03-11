@@ -32,7 +32,7 @@ export default function ShopcardScroll() {
         ProductData.map((category) => {
           return (<div key={category.categories._id} >
             <div className="w-fit">
-              <h3 className="text-xl sm:text-2xl font-bold pt-4 pb-3 pl-5 tracking-wide font3">
+              <h3 className="text-md md:text-xl font-bold pt-4 pb-3 pl-5 tracking-wide font3">
                 {category.categories.name}
               </h3>
               <hr className="border border-gray-500 ml-5 mb-4 w-2/3 rounded-full" />

@@ -66,12 +66,12 @@ export default function ShopPage() {
   return (
     <div>
         <Navbar />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center pt-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center pt-24 px-4">
         <Activity mode={!(Products == "") ? "visible" : "hidden"}>
             {
               Products.map( (product) =>{
                 return (
-                  <ShopCard key={product._id} name={product.name} brand={product.brand} discountedPrice={product.discountedPrice} sellingPrice={product.sellingPrice} id={product._id} img={product.images[0].url}/>
+                  <ShopCard key={product._id} name={product.name} brand={product.brand} discountedPrice={product.discountedPrice} sellingPrice={product.sellingPrice} id={product._id} quantity={false} ButtonName={"Buy"} img={product.images[0].url}/>
                 )
               })
             }

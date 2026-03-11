@@ -4,13 +4,22 @@ import cart from '../assets/icons/shopping-cart.png'
 import heart from '../assets/icons/heart.png'
 import contactUs from '../assets/icons/customer-service.png'
 import deals from "../assets/icons/deal.png"
-import { useDispatch } from 'react-redux'
-import { openSearch } from '../features/ui/uiSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { closeSearch, openSearch } from '../features/ui/uiSlice.js'
 import { Link } from 'react-router-dom'
 
 export default function BottomBar() {
 
-  const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const isSearchOpen = useSelector((state) => state.ui.isSearchOpen);
+
+      function SearchBar(){
+          if (!isSearchOpen) {
+              dispatch(openSearch());
+          }else{
+              dispatch(closeSearch());
+          }
+      }
 
   return (
     <div
@@ -30,7 +39,7 @@ export default function BottomBar() {
     <Link to="/cart" ><img className="w-6 cursor-pointer active:scale-90 transition-transform" src={cart} alt="" /></Link>
     <img
       className="w-6 cursor-pointer active:scale-90 transition-transform"
-      onClick={() => { dispatch(openSearch()) }}
+      onClick={SearchBar}
       src={searchIcon}
       alt=""
     />

@@ -72,9 +72,6 @@ export default function ShopCard({ name, brand, discountedPrice, sellingPrice, i
         }
       }
     }
-  
-
-  
 
   const navigate = useNavigate();
 
@@ -89,39 +86,88 @@ export default function ShopCard({ name, brand, discountedPrice, sellingPrice, i
 
   
   return (
-    <div className="border border-blak w-70">
-      <Link to={`/productdetailspage?id=${encodeURIComponent(id)}`}>
-        <img className='h-70' src={img} alt="" />
-      </Link>
-      <p className='text-gray-600 text-md font-semibold pt-3 pl-2 font3 leading-none'>{name}</p>
-      <p className='text-gray-400 font-medium text-sm pl-2 mt-1 font3'>{brand}</p>
-      <div className='flex justify-between px-2 pb-2 items-center w-66'>
-        <p><span className='text-green-600 font-semibold font3'>₹{discountedPrice}</span> <span className='text-gray-400 font-semibold line-through'>₹{sellingPrice}</span></p>
-        { quantity && <div className="flex items-center border rounded-md w-fit overflow-hidden">
-              <button onClick={updateQuantity} data-action="decrease" className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-lg font-semibold">
-                −
-              </button>
+    <div className="w-full max-w-[220px] bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-200">
 
-              <input
-                type="number"
-                className="w-12 text-center outline-none border-x"
-                value={item ? item.quantity : 1}
-                onChange={(e) =>{
-                  dispatch(setQuantity({ productId: id, quantity: Number(e.target.value) }))}
-                }
-              />
-
-              <button data-action="increase" onClick={updateQuantity} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-lg font-semibold">
-                +
-              </button>
-            </div> }
-        {
-          !quantity &&
-            
-            <button onClick={BuyItem} data-action={ButtonName} className='bg-amber-300 px-4 py-1 font-semibold font3'>{ButtonName ? ButtonName : "Buy Now"}</button>
-        }
-      </div>
-      <Toaster />
+  <Link to={`/productdetailspage?id=${encodeURIComponent(id)}`} className="block">
+    <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
+      <img 
+        className="h-full w-full"
+        src={img} 
+        alt={name}
+      />
     </div>
+  </Link>
+
+  <div className="p-3 flex flex-col gap-1">
+
+    <p className="text-gray-800 text-sm font-semibold line-clamp-2">
+      {name}
+    </p>
+
+    <p className="text-gray-500 text-xs">
+      {brand}
+    </p>
+
+
+
+    <div className="flex justify-between items-center mt-2">
+      <div className="flex items-center gap-2 mt-1">
+        <span className="text-green-600 font-semibold text-sm">
+          ₹{discountedPrice}
+        </span>
+        <span className="text-gray-400 line-through text-xs">
+          ₹{sellingPrice}
+        </span>
+      </div>
+      {quantity && (
+        <div className="flex items-center border rounded-md overflow-hidden">
+          <button
+            onClick={updateQuantity}
+            data-action="decrease"
+            className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+          >
+            −
+          </button>
+
+          <input
+            type="number"
+            className="w-10 text-center outline-none border-x"
+            value={item ? item.quantity : 1}
+            onChange={(e) =>
+              dispatch(
+                setQuantity({
+                  productId: id,
+                  quantity: Number(e.target.value),
+                })
+              )
+            }
+          />
+
+          <button
+            data-action="increase"
+            onClick={updateQuantity}
+            className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+          >
+            +
+          </button>
+        </div>
+      )}
+
+      {!quantity && (
+        <button
+          onClick={BuyItem}
+          data-action={ButtonName}
+          className="bg-amber-400 hover:bg-amber-500 text-xs px-3 py-1 rounded-md font-semibold transition"
+        >
+          {ButtonName ? ButtonName : "Buy"}
+        </button>
+      )}
+
+    </div>
+
+  </div>
+
+  <Toaster />
+</div>
   )
 }
