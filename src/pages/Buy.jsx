@@ -53,7 +53,7 @@ export default function Buy() {
                 setDiscountMRP(DMRP);
                 setproducts(array);
             } catch (e) {
-                if(e.response.data.error.name == "JsonWebTokenError"){
+                if(e.response.data.message == "Authentication required"){
                     navigate("/signin")
                     toast.error("Please login to purchase")
                 }

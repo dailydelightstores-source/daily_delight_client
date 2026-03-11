@@ -37,7 +37,7 @@ export default function Cart() {
       })
       dispatch(setCart(cartDataStore))
     }catch(error){
-      if(error.response.data.error.message == "jwt must be provided"){
+      if(error.response.data.message == "Authentication required"){
         navigate("/signin")
         toast.error("Please login to see cart");
       }
